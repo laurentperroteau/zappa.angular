@@ -1,0 +1,21 @@
+<div ng-controller="SearchCoverCtrl as scvm">
+
+    <!--<label>Recherche le cover</label>
+    <input type="text" ng-change="search()" ng-model="query" />
+
+    Quantité : {{ albumsQty }}-->
+    <label>Recherche le cover</label>
+    <input type="search" ng-model="queryCover" ng-change="changeSearch()" placeholder="{{queryDefault}}" ng-model-options="{debounce: 500}">
+    
+    <ul>
+        <li ng-repeat="cover in scvm.covers | limitTo : 10">
+            <a href="javascript:void(0)">
+                <img
+                    ng-show="cover.artworkUrl100.length"
+                    src="{{ cover.artworkUrl100 }}" 
+                    alt="" 
+                    ng-click="scvm.selectedCover( cover.artworkUrl100 )" />
+            </a>
+        </li>
+    </ul>
+</div>

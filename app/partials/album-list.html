@@ -1,0 +1,25 @@
+<div ng-controller="AlbumListCtrl as alvm">
+    <input type="text" ng-model="query">
+    <select ng-model="orderList">
+        <!-- La value doit correspondre au donnée de l'album -->
+        <option value="author">Auteur</option>
+        <option value="title">Name</option>
+        <option value="date">Date</option>
+    </select>
+
+    Quantité : {{ albumsQty }}
+        
+    <!-- Ordonnée par le résultat du model orderList -->
+    <ul ng-repeat="album in alvm.albums | filter:query | orderBy:orderList">
+        <li>
+            Auteur : {{ album.author }}<br />
+            Titre : {{ album.title }}<br />
+            Date : {{ album.date }}<br />
+            Cover : 
+                <img ng-show="album.itunesCover.length" src="{{ album.itunesCover }}" />
+                <span ng-show="!album.itunesCover.length" style="display: block; width: 100px; height: 100px; background-color: #ccc;">
+                    No image
+                </span>
+        </li>
+    </ul>
+</div>

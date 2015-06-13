@@ -1,8 +1,7 @@
 'use strict';
 
-app.controller('WrapperController', function (
-    $rootScope, $scope, $timeout, 
-    MusicBrainz, Itunes
+app.controller('WrapperCtrl', function (
+    $rootScope
 ){
 
     var _this = this;
