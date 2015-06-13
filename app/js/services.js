@@ -4,7 +4,7 @@
    //      un service retourne une fonction
    //      un provider retourne la fonction $get
 
-/*app.service('notes', ['', function(){
+/*app.service('GlobalVar', ['', function(){
 
     var notes = 'First';
 
@@ -16,8 +16,7 @@
             notes = value;
         }
     };
-}]); 
-*/
+}]); */
 
 
 app.factory('MusicBrainz', function ($http) {

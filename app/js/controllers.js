@@ -1,12 +1,24 @@
 'use strict';
 
-var idZappa = 'e20747e7-55a4-452e-8766-7b985585082d';
-var idMothers = 'fe98e268-4ddd-441b-95a0-b219375f9ae4';
-var zappaName = 'Frank Zappa';
-var mothersName = 'Frank Zappa and the Mothers of Invention';
+app.controller('WrapperController', function (
+    $rootScope, $scope, $timeout, 
+    MusicBrainz, Itunes
+){
+
+    var _this = this;
+
+    $rootScope.idZappa = 'e20747e7-55a4-452e-8766-7b985585082d';
+    $rootScope.idMothers = 'fe98e268-4ddd-441b-95a0-b219375f9ae4';
+    $rootScope.zappaName = 'Frank Zappa';
+    $rootScope.mothersName = 'Frank Zappa and the Mothers of Invention';
+});
 
 
-app.controller('DisplayListController', function ($scope, $timeout, MusicBrainz, Itunes) {
+
+app.controller('DisplayListController', function (
+    $rootScope, $scope, $timeout, 
+    MusicBrainz, Itunes
+){
 
     var _this = this;
 
@@ -44,14 +56,14 @@ app.controller('DisplayListController', function ($scope, $timeout, MusicBrainz,
         return aAlbumns;
     }
 
-    MusicBrainz.albums( idZappa ).then( function (response) {
+    MusicBrainz.albums( $rootScope.idZappa ).then( function (response) {
 
         // Correction data et ajout de l'auteur
-        var aFzAlbums = correctionAlbums( response.data.releases, zappaName );
+        var aFzAlbums = correctionAlbums( response.data.releases, $rootScope.zappaName );
 
-        MusicBrainz.albums( idMothers ).then( function (response) {
+        MusicBrainz.albums( $rootScope.idMothers ).then( function (response) {
 
-            var aMotherAlbums = correctionAlbums( response.data.releases, mothersName );
+            var aMotherAlbums = correctionAlbums( response.data.releases, $rootScope.mothersName );
 
             var aAlbumns = aFzAlbums.concat( aMotherAlbums );
             
@@ -66,15 +78,18 @@ app.controller('DisplayListController', function ($scope, $timeout, MusicBrainz,
         angular.forEach(albums, function(album, key) {
 
             Itunes.get({
-                    term: zappaName +' '+ album.title,
+                    term: $rootScope.zappaName +' '+ album.title,
                     entity: 'musicTrack'
                 }, function(response) {
 
                     $scope.covers = response.results;
 
-                    if( $scope.covers[0].artworkUrl100 !== undefined ) {
-                        
-                        $scope.albums[ key ].itunesCover = $scope.covers[0].artworkUrl100;
+                    if( $scope.covers[0] !== undefined ) {
+
+                        if( $scope.covers[0].artworkUrl100 !== undefined ) {
+                            
+                            $scope.albums[ key ].itunesCover = $scope.covers[0].artworkUrl100;
+                        }
                     }
                 }
             );
