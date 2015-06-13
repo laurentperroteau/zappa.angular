@@ -29,7 +29,11 @@
         <ul>
             <li ng-repeat="cover in covers | limitTo : 10">
                 <a href="javascript:void(0)">
-                    <img src="{{ cover.artworkUrl100 }}" alt="" ng-click="selectedCover( cover.artworkUrl100 )" />
+                    <img
+                        ng-show="cover.artworkUrl100.length"
+                        src="{{ cover.artworkUrl100 }}" 
+                        alt="" 
+                        ng-click="selectedCover( cover.artworkUrl100 )" />
                 </a>
             </li>
         </ul>
@@ -48,13 +52,14 @@
         </select>
 
         Quantité : {{ albumsQty }}
-        
+            
         <!-- Ordonnée par le résultat du model orderList -->
         <ul ng-repeat="album in albums | filter:query | orderBy:orderList">
             <li>
                 Auteur : {{ album.author }}<br />
                 Titre : {{ album.title }}<br />
                 Date : {{ album.date }}<br />
+                Cover : <img src="{{ album.itunesCover }}" />
             </li>
         </ul>
     </div>
@@ -67,6 +72,7 @@
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
+    <!--<script src="js/controller/DispalyCoverCtrl.js"></script>-->
     <script src="js/filters.js"></script>
     <script src="js/directives.js"></script>
 </body>

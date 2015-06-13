@@ -6,7 +6,9 @@ var zappaName = 'Frank Zappa';
 var mothersName = 'Frank Zappa and the Mothers of Invention';
 
 
-app.controller('DisplayListController', function ($scope, MusicBrainz) {
+app.controller('DisplayListController', function ($scope, $timeout, MusicBrainz, Itunes) {
+
+    var _this = this;
 
     function correctionAlbums( aAlbumns, authorName ) {
 
@@ -54,8 +56,31 @@ app.controller('DisplayListController', function ($scope, MusicBrainz) {
             var aAlbumns = aFzAlbums.concat( aMotherAlbums );
             
             $scope.albums = deleteDuplicate( aAlbumns );
+
+            _this.getCover( $scope.albums );
         });
     });
+
+    this.getCover = function( albums ) {
+ 
+        angular.forEach(albums, function(album, key) {
+
+            Itunes.get({
+                    term: zappaName +' '+ album.title,
+                    entity: 'musicTrack'
+                }, function(response) {
+
+                    $scope.covers = response.results;
+
+                    if( $scope.covers[0].artworkUrl100 !== undefined ) {
+                        
+                        $scope.albums[ key ].itunesCover = $scope.covers[0].artworkUrl100;
+                    }
+                }
+            );
+        });
+    };
+
 });
 
 app.controller('SearchCoverController', function ($scope, $timeout, Itunes) {

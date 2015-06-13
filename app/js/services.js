@@ -4,7 +4,7 @@
    //      un service retourne une fonction
    //      un provider retourne la fonction $get
 
-app.service('notes', ['', function(){
+/*app.service('notes', ['', function(){
 
     var notes = 'First';
 
@@ -17,6 +17,8 @@ app.service('notes', ['', function(){
         }
     };
 }]); 
+*/
+
 
 app.factory('MusicBrainz', function ($http) {
 
@@ -39,6 +41,21 @@ app.factory('MusicBrainz', function ($http) {
         albums: getAlbums
     }
 });
+
+app.factory('Itunes', ['$resource',
+    
+    function($resource) {
+        return $resource('https://itunes.apple.com/:action', {
+            action: "search",
+            callback: 'JSON_CALLBACK'
+        }, {
+            get: {
+                method: 'JSONP'
+            }
+        });
+    }
+]); // https://itunes.apple.com/search?callback=angular.callbacks._0&entity=&term=Frank+Zappa
+
 
 /*app.factory('Itunes', function ($resource) {
 
@@ -64,19 +81,7 @@ app.factory('MusicBrainz', function ($http) {
     }
 });*/
 
-app.factory('Itunes', ['$resource',
-    
-    function($resource) {
-        return $resource('https://itunes.apple.com/:action', {
-            action: "search",
-            callback: 'JSON_CALLBACK'
-        }, {
-            get: {
-                method: 'JSONP'
-            }
-        });
-    }
-]); // https://itunes.apple.com/search?callback=angular.callbacks._0&entity=&term=Frank+Zappa
+
  
 
 
