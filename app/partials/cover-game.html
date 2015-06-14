@@ -1,0 +1,38 @@
+<style>
+    ul {
+        clear: both;
+    }
+    .cover {
+        float: left;
+    }
+    .cover-default {
+        display: block; width: 100px; height: 100px; background-color: #ccc;
+    }
+</style>
+
+<div ng-controller="CoverGameCtrl as cgvm">
+
+    <h2>Pour chaque album, choisir la bonne pochette entre 3</h2>
+        
+    <!-- Liste des albums par date-->
+    <ul ng-repeat="album in cgvm.albums | orderBy:date">
+        <li>
+            <h3>
+                <a 
+                    ng-click="cgvm.showCovers( album )"
+                    href="javascript:void(0)">
+                    {{ album.title }}
+                </a>
+            </h3>
+
+            <ul ng-repeat="currentCover in album.covers track by $index">
+                <li class="cover">
+                    <img ng-show="currentCover.length" src="{{ currentCover }}" />
+                    <span ng-show="!currentCover.length" class="cover-default">
+                        No image
+                    </span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
