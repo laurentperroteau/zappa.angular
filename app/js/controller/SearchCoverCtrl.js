@@ -7,7 +7,7 @@ app.controller('SearchCoverCtrl', function (
 
     $scope.$watch('queryCover', function (val) {
         
-        // Si existe et plus de 3 lettre
+        // If exist and more than 3 Si existe character
         if ( !val || val.length < 4 )
             return false;
         
