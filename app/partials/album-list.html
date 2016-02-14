@@ -1,4 +1,10 @@
 <div ng-controller="AlbumListCtrl as alvm">
+    
+    <ul>
+        <li style="color: red">State : {{ alvm.state }}</li>
+        <li style="color: red">State :{{ alvm.stateItunes }}</li>
+    </ul>
+
     <input type="text" ng-model="query">
     <select ng-model="orderList">
         <!-- La value doit correspondre au donnée de l'album -->
@@ -7,7 +13,7 @@
         <option value="date">Date</option>
     </select>
 
-    Quantité : {{ albumsQty }}
+    Quantité : {{ alvm.albumsQty }}
         
     <!-- Ordonnée par le résultat du model orderList -->
     <ul ng-repeat="album in alvm.albums | filter:query | orderBy:orderList">
