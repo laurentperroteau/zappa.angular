@@ -5,14 +5,24 @@
     .cover {
         float: left;
     }
+    .cover a {
+        display: block;
+        border: 10px solid white;
+    }
     .cover-default {
         display: block; width: 100px; height: 100px; background-color: #ccc;
+    }
+    .cover .good {
+        border: 10px solid green;
+    }
+    .cover .bad {
+        border: 10px solid red;
     }
 </style>
 
 <div ng-controller="CoverGameCtrl as cgvm">
 
-    <h2>Pour chaque album, choisir la bonne pochette entre 3</h2>
+    <h2>Pour chaque album, choisir la bonne pochette :</h2>
         
     <!-- Liste des albums par date-->
     <ul ng-repeat="album in cgvm.albums | orderBy:date">
@@ -25,12 +35,18 @@
                 </a>
             </h3>
 
-            <ul ng-repeat="currentCover in album.covers track by $index">
+            <ul ng-repeat="(key,cover) in album.covers track by $index">
                 <li class="cover">
-                    <img ng-show="currentCover.length" src="{{ currentCover }}" />
-                    <span ng-show="!currentCover.length" class="cover-default">
-                        No image
-                    </span>
+                    <a  
+                        ng-init="response"
+                        ng-click="response = cgvm.question( key )"
+                        ng-class="{'good': response == 'good', 'bad': response == 'bad'}"
+                        href="javascript:void(0)">
+                        <img ng-show="cover.length" src="{{ cover }}" />
+                        <span ng-show="!cover.length" class="cover-default">
+                            No image
+                        </span>
+                    </a>
                 </li>
             </ul>
         </li>

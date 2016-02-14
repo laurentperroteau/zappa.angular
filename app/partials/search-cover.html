@@ -1,10 +1,6 @@
 <div ng-controller="SearchCoverCtrl as scvm">
 
-    <!--<label>Recherche le cover</label>
-    <input type="text" ng-change="search()" ng-model="query" />
-
-    Quantité : {{ albumsQty }}-->
-    <label>Recherche le cover</label>
+    <label>Rechercher un pochette  le cover sur tout le catelogue iTunes</label>
     <input type="search" ng-model="queryCover" ng-change="changeSearch()" placeholder="{{queryDefault}}" ng-model-options="{debounce: 500}">
     
     <ul>
