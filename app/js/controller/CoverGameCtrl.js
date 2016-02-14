@@ -9,7 +9,7 @@ app.controller('CoverGameCtrl', function (
 
     MusicBrainz.albums( $rootScope.idZappa ).then( function (response) {
 
-        // Correction data et ajout de l'auteur
+        // Fix data and add author
         var aFzAlbums = _this.correctionAlbums( response.data.releases, $rootScope.zappaName );
 
 
@@ -28,7 +28,10 @@ app.controller('CoverGameCtrl', function (
 
         for (var i = 0, len = aAlbumns.length; i < len; i++) {
 
+            // Get only year for date
             aAlbumns[i].date = aAlbumns[i].date.substring(0, 4);
+
+            // Set author
             aAlbumns[i].author = authorName;
         }
 
@@ -74,10 +77,11 @@ app.controller('CoverGameCtrl', function (
         this.getCover( album.title, index, this.getRandomWord() );
     };
 
+
     this.getRandomWord = function() {
 
         var words = [
-            'belle', 'tour', 'david', 'john', 'the', 'frank', 'alain', 'franky'
+            'belle', 'tour', 'david', 'john', 'the', 'frank', 'alain', 'franky', 'california', 'sixties', 'free'
         ];
 
         var randWord1 = words[ Math.floor( Math.random() * ((words.length - 1) - 0) + 0 ) ];
@@ -100,7 +104,6 @@ app.controller('CoverGameCtrl', function (
 
                 if( res[0] !== undefined ) {
 
-
                     if( res[0].artworkUrl100 !== undefined ) {
 
                         _this.albums[ index ].covers[ goodBad ] = res[0].artworkUrl100;
@@ -108,5 +111,13 @@ app.controller('CoverGameCtrl', function (
                 }
             }
         );
+    };
+
+
+    this.question = function( cover ) {
+
+        var res = cover != 'good' ? 'bad': 'good'
+
+        return res;
     };
 });
